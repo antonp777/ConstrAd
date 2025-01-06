@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 from core.models import StatusPay
 
@@ -14,6 +14,11 @@ class PaymentBase(BaseModel):
 
 class PaymentCreate(PaymentBase):
     user_id: int
+
+class PaymentUpdate(PaymentBase):
+    sum: int | None = None
+    date: datetime | None = None
+    status_pay: StatusPay | None = None
 
 
 class PaymentRead(PaymentBase):

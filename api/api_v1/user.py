@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from core import settings
 from core.models import db_helper
-from core.schemas.ScUser import UserRead, UserCreate
+from core.schemas.ScUser import UserRead, UserCreate, UserUpdate
 from crud import user as crud_user
 
 router = APIRouter(
@@ -26,3 +26,10 @@ async def get_user_by_id(session: Annotated[AsyncSession, Depends(db_helper.sess
 @router.post("", response_model=UserRead)
 async def create_user(session: Annotated[AsyncSession, Depends(db_helper.session_getter)], user_create: UserCreate):
     return await crud_user.create_user(session=session, user_create=user_create)
+
+@router.patch("/{user_id}", response_model=UserUpdate)
+async def update_user(session: Annotated[AsyncSession, Depends(db_helper.session_getter)], user_id: int, user_update: UserUpdate):
+    user = await crud_user.get_user_by_id(session=session, user_id=user_id)
+    if user:
+        return await crud_user.update_user(session=session, user=user, user_update=user_update)
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")

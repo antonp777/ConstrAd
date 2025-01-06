@@ -1,7 +1,7 @@
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from core.models import Payment
-from core.schemas.ScPayment import PaymentCreate
+from core.schemas.ScPayment import PaymentCreate, PaymentUpdate
 
 
 async def get_all_payments(session: AsyncSession) -> list[Payment]:
@@ -27,4 +27,10 @@ async def create_payment(session: AsyncSession, payment_create: PaymentCreate) -
     session.add(payment)
     await session.commit()
     # await session.refresh(user)
+    return payment
+
+async def update_payment(session: AsyncSession, payment: Payment, payment_update: PaymentUpdate) -> Payment:
+    for name, value in payment_update.model_dump(exclude_unset=True).items():
+        setattr(payment, name, value)
+    await session.commit()
     return payment

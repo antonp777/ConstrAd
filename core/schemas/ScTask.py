@@ -18,6 +18,16 @@ class TaskBase(BaseModel):
 class TaskCreate(TaskBase):
     pass
 
+class TaskUpdate(TaskBase):
+    city: str | None = None
+    district: str | None = None
+    work: str | None = None
+    price_work: int | None = None
+    person: int | None = None
+    fee: int | None = None
+    phone: str | None = None
+    status_task: StatusTask | None = None
+
 class TaskRead(TaskBase):
     id: int
     orders: list[OrderRead]

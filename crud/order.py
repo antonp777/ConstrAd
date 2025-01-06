@@ -1,7 +1,7 @@
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from core.models import Order
-from core.schemas.ScOrder import OrderCreate
+from core.schemas.ScOrder import OrderCreate, OrderUpdate
 
 
 async def get_all_orders(session: AsyncSession) -> list[Order]:
@@ -29,6 +29,11 @@ async def create_order(session: AsyncSession, order_create: OrderCreate) -> Orde
     # await session.refresh(user)
     return order
 
+async def update_order(session: AsyncSession, order: Order, order_update: OrderUpdate) -> Order:
+    for name, value in order_update.model_dump(exclude_unset=True).items():
+        setattr(order, name, value)
+    await session.commit()
+    return order
 
 async def delete_user():
     pass
