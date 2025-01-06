@@ -14,7 +14,7 @@ class Task(Base):
     price_work: Mapped[int]
     person: Mapped[int]
     fee: Mapped[int]
-    phone: Mapped[int]
+    phone: Mapped[str]
     status_task: Mapped[StatusTask]
 
     orders: Mapped[list["Order"]] = relationship(back_populates="task")
