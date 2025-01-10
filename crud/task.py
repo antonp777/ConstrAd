@@ -1,13 +1,13 @@
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import joinedload
+from sqlalchemy.orm import joinedload, selectinload
 
 from core.models import Task
 from core.schemas.ScTask import TaskCreate, TaskUpdate
 
 
 async def get_all_tasks(session: AsyncSession) -> list[Task]:
-    stm = select(Task).options(joinedload(Task.orders)).order_by(Task.id)
+    stm = select(Task).options(joinedload(Task.orders), selectinload(Task.users)).order_by(Task.id)
     result = await session.execute(stm)
     tasks = result.unique().scalars().all()
     return list(tasks)

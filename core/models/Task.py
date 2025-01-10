@@ -1,12 +1,13 @@
 from typing import TYPE_CHECKING
-from sqlalchemy.orm import Mapped, relationship
+from sqlalchemy.orm import Mapped, relationship, mapped_column
 
 from .base import Base
-from .model_enum import StatusTask
 
 if TYPE_CHECKING:
     from .Order import Order
     from .User import User
+
+
 class Task(Base):
     city: Mapped[str]
     district: Mapped[str]
@@ -15,6 +16,13 @@ class Task(Base):
     person: Mapped[int]
     fee: Mapped[int]
     phone: Mapped[str]
-    status_task: Mapped[StatusTask]
+    is_active: Mapped[bool] = mapped_column(default=True, server_default="True")
 
     orders: Mapped[list["Order"]] = relationship(back_populates="task")
+    users: Mapped[list["User"]] = relationship(
+        secondary="orders",
+        back_populates="tasks"
+    )
+
+    def __str__(self):
+        return f"Задание #{self.id}"

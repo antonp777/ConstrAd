@@ -13,3 +13,6 @@ class Payment(Base):
     status_pay: Mapped[StatusPay]
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
     user: Mapped["User"] = relationship(back_populates="payments")
+
+    def __str__(self):
+        return f"Payment #{self.id} | date: {self.date} | status: {self.status_pay}"

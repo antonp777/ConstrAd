@@ -1,8 +1,7 @@
 from pydantic import BaseModel
 
-from core.models import StatusTask
+from core.schemas.ScOrder import OrderRead
 
-from core.schemas.ScUser import OrderRead
 
 
 class TaskBase(BaseModel):
@@ -13,10 +12,11 @@ class TaskBase(BaseModel):
     person: int
     fee: int
     phone: str
-    status_task: StatusTask
+
 
 class TaskCreate(TaskBase):
     pass
+
 
 class TaskUpdate(TaskBase):
     city: str | None = None
@@ -26,8 +26,15 @@ class TaskUpdate(TaskBase):
     person: int | None = None
     fee: int | None = None
     phone: str | None = None
-    status_task: StatusTask | None = None
+    is_active: bool | None = None
+
 
 class TaskRead(TaskBase):
     id: int
+    is_active: bool
     orders: list[OrderRead]
+
+
+class TaskIdRead(TaskBase):
+    id: int
+    is_active: bool

@@ -18,5 +18,7 @@ class Order(Base):
     user: Mapped["User"] = relationship(back_populates="orders")
     task: Mapped["Task"] = relationship(back_populates="orders")
 
+    def __str__(self):
+        return f"Order #{self.id}"
 
 
