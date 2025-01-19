@@ -3,7 +3,7 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict
 
 from core.models import StatusPay
-
+from utils.date import date_time
 
 
 class PaymentBase(BaseModel):
@@ -14,6 +14,9 @@ class PaymentBase(BaseModel):
 
 class PaymentCreate(PaymentBase):
     user_id: int
+    status_pay: StatusPay = StatusPay.WAIT
+    date: datetime = date_time()
+    comment: str
 
 class PaymentUpdate(PaymentBase):
     sum: int | None = None

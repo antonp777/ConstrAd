@@ -4,12 +4,17 @@ import uvicorn
 from fastapi import FastAPI
 from sqladmin import Admin
 
+from adminPanel.auth_backend import authentication_backend
 from api import router as api_router
 from core.config import settings
 from core.models import db_helper
 
-from adminPanel.UserAdminViews import UserAdminViews
-from adminPanel.PaymentAdminViews import PaymentAdminViews
+from adminPanel.UserViews import UserViews
+from adminPanel.PaymentViews import PaymentViews
+from adminPanel.UserServiceViews import UserServiceViews
+from adminPanel.OrderViews import OrderViews
+from adminPanel.TaskViews import TaskViews
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -24,10 +29,13 @@ main_app = FastAPI(
 main_app.include_router(api_router)
 
 
-admin = Admin(main_app, db_helper.engine)
+admin = Admin(main_app, db_helper.engine, authentication_backend=authentication_backend)
 
-admin.add_view(UserAdminViews)
-admin.add_view(PaymentAdminViews)
+admin.add_view(TaskViews)
+admin.add_view(UserViews)
+admin.add_view(PaymentViews)
+admin.add_view(OrderViews)
+admin.add_view(UserServiceViews)
 
 
 if __name__ == "__main__":

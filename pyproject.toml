@@ -12,6 +12,9 @@ asyncpg = "^0.30.0"
 alembic = "^1.14.0"
 sqladmin = {extras = ["full"], version = "^0.20.1"}
 pyjwt = {extras = ["crypto"], version = "^2.10.1"}
+bcrypt = "^4.2.1"
+wtf = "^0.1"
+aiohttp = "^3.11.11"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.10.0"

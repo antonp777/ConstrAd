@@ -3,7 +3,7 @@ from sqladmin import ModelView
 from core.models import User
 
 
-class UserAdminViews(ModelView, model=User):
+class UserViews(ModelView, model=User):
     name = "Пользователь"
     name_plural = "Пользователи"
     icon = "fas fa-user"

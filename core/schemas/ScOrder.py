@@ -2,6 +2,8 @@ from datetime import datetime
 
 from pydantic import BaseModel
 
+from utils.date import date_time
+
 
 class OrderBase(BaseModel):
     task_fee: int
@@ -11,6 +13,7 @@ class OrderBase(BaseModel):
 class OrderCreate(OrderBase):
     user_id: int
     task_id: int
+    date: datetime = date_time()
 
 class OrderUpdate(OrderBase):
     task_fee: int | None = None

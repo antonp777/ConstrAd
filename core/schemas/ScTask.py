@@ -15,7 +15,7 @@ class TaskBase(BaseModel):
 
 
 class TaskCreate(TaskBase):
-    pass
+    is_active: bool
 
 
 class TaskUpdate(TaskBase):

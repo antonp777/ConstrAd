@@ -20,5 +20,5 @@ from .Task import Task
 from .Payment import Payment
 from .User import User
 from .Order import Order
-from .UserService import RoleUserService
+from .UserService import UserService
 

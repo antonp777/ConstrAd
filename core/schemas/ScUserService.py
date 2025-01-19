@@ -12,11 +12,11 @@ class UserServiceBase(BaseModel):
     role_user: RoleUserService
 
 
-class UserCreate(UserServiceBase):
+class UserServiceCreate(UserServiceBase):
     password: str
 
 
-class UserUpdate(UserServiceBase):
+class UserServiceUpdate(UserServiceBase):
     login: str | None = None
     tg_id: int | None = None
     role_user: RoleUserService | None = None
@@ -24,6 +24,6 @@ class UserUpdate(UserServiceBase):
     password: str | None = None
 
 
-class UserRead(UserServiceBase):
+class UserServiceRead(UserServiceBase):
     id: int
     is_active: bool
